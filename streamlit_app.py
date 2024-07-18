@@ -39,5 +39,4 @@ ax.fill(angles, radar_values, alpha=0.2)
 ax.set_thetagrids(angles[:-1] * 180 / np.pi, labels)
 
 ax.set_title("レーダーチャート", pad=20)
-plt.show()
-st.pyplot.chart(fig)
+plt.show(fig)
