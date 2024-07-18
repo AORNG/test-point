@@ -1,10 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import numpy as np
-import matplotlib.pyplot as plt
-import io
-import japanize_matplotlib
 
 # Title of the Streamlit app
 st.title("5教科の点数のレーダーチャート")
@@ -28,31 +26,35 @@ if st.button("棒グラフを表示"):
     st.plotly_chart(bar_fig)
 
 # Data for the radar chart
-label_list = ['国語', '数学', '理科', '社会', '英語']
-acc_list = [A, B, C, D, E] 
-acc_list += acc_list[:1]  # Close the radar chart loop
+labels = ['国語', '数学', '理科', '社会', '英語']
+values = [A, B, C, D, E]
+values += values[:1]  # Close the radar chart loop
 
-# Calculate angles for radar chart
-angle_list = [n / float(len(label_list)) * 2 * np.pi for n in range(len(label_list))]
-angle_list += angle_list[:1]
+# Calculate the angles for the radar chart
+angles = np.linspace(0, 2 * np.pi, len(labels), endpoint=False).tolist()
+angles += angles[:1]  # Close the radar chart loop
 
-# Create radar chart with Matplotlib
-fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(polar=True))
-plt.xticks(angle_list[:-1], label_list, color='grey', size=12)
+# Create radar chart with Plotly
+radar_fig = go.Figure()
 
-# Plot data on radar chart
-ax.plot(angle_list, acc_list, linewidth=1, linestyle='solid', label='点数')
-ax.fill(angle_list, acc_list, 'blue', alpha=0.25)
+radar_fig.add_trace(go.Scatterpolar(
+    r=values,
+    theta=labels,
+    fill='toself',
+    name='点数',
+    line=dict(color='blue')
+))
 
-# Set chart title and legend
-ax.set_title('レーダーチャート', size=20, color='blue', y=1.1)
-plt.legend(loc='upper right')
+radar_fig.update_layout(
+    polar=dict(
+        radialaxis=dict(
+            visible=True,
+            range=[0, 100]  # Adjust the range based on your data
+        )
+    ),
+    showlegend=True,
+    title='レーダーチャート'
+)
 
-# Save the radar chart to a BytesIO object and display it in Streamlit
-buf = io.BytesIO()
-plt.savefig(buf, format='png')
-buf.seek(0)
-st.image(buf, caption='レーダーチャート', use_column_width=True)
-
-# Optionally close the plot to prevent display issues
-plt.close(fig)
+# Display the radar chart
+st.plotly_chart(radar_fig)
