@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import plotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
 st.title("5教科の点数のレーダーチャート")
