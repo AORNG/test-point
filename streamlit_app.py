@@ -40,4 +40,4 @@ ax.set_thetagrids(angles[:-1] * 180 / np.pi, labels)
 
 ax.set_title("レーダーチャート", pad=20)
 plt.show()
-st.pyplot(fig)
+st.pyplot.chart(fig)
