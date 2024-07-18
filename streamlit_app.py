@@ -4,8 +4,8 @@ import numpy as np
 
 st.title("5教科の点数のレーダーチャート")
 
-A=st.text_input()
-B=st.text_input()
-C=st.text_input()
-D=st.text_input()
-E=st.text_input()
+A=st.text_input("国語")
+B=st.text_input("数学")
+C=st.text_input("理科")
+D=st.text_input("社会")
+E=st.text_input("英語")
