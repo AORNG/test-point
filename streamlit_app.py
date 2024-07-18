@@ -55,6 +55,6 @@ radar_fig.update_layout(
     showlegend=True,
     title='レーダーチャート'
 )
-if st.button("レーダーチャート"):
+if st.button("レーダーチャートを表示"):
 # Display the radar chart
     st.plotly_chart(radar_fig)
