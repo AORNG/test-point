@@ -16,4 +16,5 @@ df=pd.DataFrame({
 })
 fig=px.bar(df,x="教科",y="点数")
 
-st.plotly_chart(fig)
+if st.button("棒グラフ"):
+    st.plotly_chart(fig)
